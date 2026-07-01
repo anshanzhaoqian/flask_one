@@ -1,10 +1,14 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return jsonify({"status": "healthy", "message": "Flask API is running"})
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+@app.route("/multiply/<int:num1>/<int:num2>")
+def multiply(num1, num2):
+    return jsonify({"result": num1 * num2})
+
+if __name__ == "__main__":
+    app.run(debug=True)
